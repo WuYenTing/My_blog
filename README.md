@@ -16,3 +16,5 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Docs: https://hexdocs.pm/phoenix
   * Forum: https://elixirforum.com/c/phoenix-forum
   * Source: https://github.com/phoenixframework/phoenix
+
+https://medium.com/@tanloiit2010/part-1-develop-a-post-list-api-using-phoenix-framework-and-elixir-430836d7c0e3
