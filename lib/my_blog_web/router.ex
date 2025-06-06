@@ -8,7 +8,7 @@ defmodule MyBlogWeb.Router do
   scope "/api", MyBlogWeb do
     pipe_through :api
 
-    resources "/posts", PostController, except: [:new, :edit]
+    resources "/posts", PostController
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

@@ -11,7 +11,7 @@ defmodule MyBlogWeb.PostController do
     render(conn, :index, posts: posts)
   end
 
-  def create(conn, %{"post" => post_params}) do
+  def create(conn, %{"data" => post_params}) do
     with {:ok, %Post{} = post} <- Posts.create_post(post_params) do
       conn
       |> put_status(:created)
@@ -21,23 +21,24 @@ defmodule MyBlogWeb.PostController do
   end
 
   def show(conn, %{"id" => id}) do
-    post = Posts.get_post!(id)
-    render(conn, :show, post: post)
-  end
-
-  def update(conn, %{"id" => id, "post" => post_params}) do
-    post = Posts.get_post!(id)
-
-    with {:ok, %Post{} = post} <- Posts.update_post(post, post_params) do
+    with {:ok, post} <- Posts.get_post(id) do
       render(conn, :show, post: post)
     end
   end
 
-  def delete(conn, %{"id" => id}) do
-    post = Posts.get_post!(id)
+  def update(conn, %{"id" => id, "data" => post_params}) do
+    with {:ok, post} <- Posts.get_post(id) do
+      with {:ok, %Post{} = post} <- Posts.update_post(post, post_params) do
+        render(conn, :show, post: post)
+      end
+    end
+  end
 
-    with {:ok, %Post{}} <- Posts.delete_post(post) do
-      send_resp(conn, :no_content, "")
+  def delete(conn, %{"id" => id}) do
+    with {:ok, post} <- Posts.get_post(id) do
+      with {:ok, %Post{}} <- Posts.delete_post(post) do
+        send_resp(conn, :no_content, "")
+      end
     end
   end
 end

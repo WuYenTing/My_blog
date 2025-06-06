@@ -33,9 +33,13 @@ defmodule MyBlog.Posts do
 
       iex> get_post!(456)
       ** (Ecto.NoResultsError)
-
   """
-  def get_post!(id), do: Repo.get!(Post, id)
+  def get_post(id) do
+    case Repo.get(Post, id) do
+      nil -> {:error, :not_found}
+      post -> {:ok, post}
+    end
+  end
 
   @doc """
   Creates a post.

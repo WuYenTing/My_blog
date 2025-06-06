@@ -25,26 +25,53 @@
     field :created_at, :string
     field :description, :string
 
-curl --location --request POST 'http://localhost:4000/api/posts' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "data": {
-        "tag": "tag",
-        "title": "title",
-        "category": "category",
-        "content": "Ipsum dolor sit amet **consectetur** adipiscing. Leo integer malesuada nunc vel risus. Id leo in vitae turpis massa sed elementum tempus egestas.\n\n- Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus\n- Sed felis eget velit aliquet sagittis id consectetur. Interdum varius sit amet mattis\n- Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt tortor.\n\n Integer enim neque volutpat ac tincidunt vitae. Ac turpis egestas maecenas pharetra convallis posuere. Urna neque viverra justo nec ultrices dui.",
-        "created_at": "created_at",
-        "description": "description"
-    }
-}'
+Create api
+1. use `mix phx.gen.json [context name] [module name] [schema table name] [columename:type...]`
+2. use `mix ecto.create` create database with config in config/dev.exs and stuct filed with settings in lib/[project name]/[module name]/[schema table name].ex
+3. use `mix ecto.gen.migration [user_input]` generate a migration file for log the database migrations in sequence
+4. edit databse change in priv/repo/migrations/date_user_input.exs
+5. use `mix ecto.migrate` to migrate the database
 
+Test api
+1. list all posts -> GET
+curl -i GET http://localhost:4000/api/posts
+2. create a post -> POST
 curl -iX POST http://localhost:4000/api/posts \
    -H 'Content-Type: application/json' \
-   -d '{"post": {
+   -d '{"data": {
         "tag": "tag",
         "title": "title",
         "category": "category",
-        "content": "Ipsum dolor sit amet **consectetur** adipiscing. Leo integer malesuada nunc vel risus. Id leo in vitae turpis massa sed elementum tempus egestas.\n\n- Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus\n- Sed felis eget velit aliquet sagittis id consectetur. Interdum varius sit amet mattis\n- Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt tortor.\n\n Integer enim neque volutpat ac tincidunt vitae. Ac turpis egestas maecenas pharetra convallis posuere. Urna neque viverra justo nec ultrices dui.",
+        "content": "content",
         "created_at": "created_at",
         "description": "description"
     }}'
+3. read a post -> GET
+curl -i GET http://localhost:4000/api/posts/id
+4. update a post -> PUT
+curl -iX PUT http://localhost:4000/api/posts/id \
+   -H 'Content-Type: application/json' \
+   -d '{"data": {
+        "tag": "tag",
+        "title": "title",
+        "category": "category",
+        "content": "content",
+        "created_at": "created_at",
+        "description": "description"
+    }}'
+5. delete a post -> DELETE
+curl -iX DELETE http://localhost:4000/api/posts/id \
+   -H 'Content-Type: application/json'
+
+
+curl -i http://localhost:4000/api/posts -> list all posts
+curl -i http://localhost:4000/api/posts/id -> list id-th post
+
+login to database and check the created result
+sh: psql -U postgres -> passward:postgres
+select the database connect to the phoenix
+SQL: \c database name
+list all tables in the database -> posts, shema_migration
+SQL: \dt
+list all posts
+SQL: SELECT * FROM posts;
