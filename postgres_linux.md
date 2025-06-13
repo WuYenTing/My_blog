@@ -1,4 +1,4 @@
-1. sudo servce postgres stop version
+1. sudo service postgres stop version
 1. sudo apt list --installed | grep postgres -> check if postgresql-version exist
 2. sudo apt-get remove postgresql-version
 3. sudo rm -r -f /var/lib/postgresql
