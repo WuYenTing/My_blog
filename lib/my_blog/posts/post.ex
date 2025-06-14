@@ -8,7 +8,6 @@ defmodule MyBlog.Posts.Post do
     field :title, :string
     field :category, :string
     field :content, :string
-    field :created_at, :string
 
     timestamps(type: :utc_datetime)
   end
@@ -16,7 +15,7 @@ defmodule MyBlog.Posts.Post do
   @doc false
   def changeset(post, attrs) do
     post
-    |> cast(attrs, [:tag, :title, :category, :content, :created_at, :description])
-    |> validate_required([:tag, :title, :category, :content, :created_at, :description])
+    |> cast(attrs, [:tag, :title, :category, :content, :description])
+    |> validate_required([:tag, :title, :category, :content, :description])
   end
 end

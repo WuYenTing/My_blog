@@ -22,7 +22,6 @@
     field :title, :string
     field :category, :string
     field :content, :string
-    field :created_at, :string
     field :description, :string
 
 Create api
@@ -43,7 +42,6 @@ curl -iX POST http://localhost:4000/api/posts \
         "title": "title",
         "category": "category",
         "content": "content",
-        "created_at": "created_at",
         "description": "description"
     }}'
 3. read a post -> GET
@@ -56,7 +54,6 @@ curl -iX PUT http://localhost:4000/api/posts/id \
         "title": "title",
         "category": "category",
         "content": "content",
-        "created_at": "created_at",
         "description": "description"
     }}'
 5. delete a post -> DELETE
@@ -75,3 +72,15 @@ list all tables in the database -> posts, shema_migration
 SQL: \dt
 list all posts
 SQL: SELECT * FROM posts;
+
+curl -iX POST http://localhost:4000/api/posts \
+   -H 'Content-Type: application/json' \
+   -d '{
+  "data": {
+    "tag": "environment",
+    "title": "UN Releases Urgent Climate Report Highlighting Accelerated Ice Melt",
+    "category": "World News",
+    "content": "The United Nations Intergovernmental Panel on Climate Change (IPCC) released a new report on June 3, 2025, warning that polar ice melt is accelerating faster than previously predicted. The report, compiled by over 300 scientists worldwide, cites record-breaking temperatures in the Arctic and Antarctic regions over the past year. According to the findings, global sea levels could rise by up to 1.2 meters by the end of the century if greenhouse gas emissions are not drastically cut within the next decade. The report also highlights the increased frequency of extreme weather events such as floods, droughts, and wildfires. UN Secretary-General António Guterres called the findings a red alert for humanity and urged world leaders to commit to binding emission reduction targets ahead of the COP30 summit in Brazil later this year. Environmental groups welcomed the report but expressed concern over the slow pace of international action. The report stresses that immediate investment in renewable energy, forest preservation, and climate adaptation strategies are essential to avoid catastrophic consequences.",
+    "description": "A new UN report warns that polar ice is melting faster than expected, with major implications for global sea levels and extreme weather patterns."
+  }
+}'

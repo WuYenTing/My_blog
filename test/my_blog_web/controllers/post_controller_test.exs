@@ -11,7 +11,6 @@ defmodule MyBlogWeb.PostControllerTest do
     title: "some title",
     category: "some category",
     content: "some content",
-    created_at: "some created_at"
   }
   @update_attrs %{
     tag: "some updated tag",
@@ -19,9 +18,8 @@ defmodule MyBlogWeb.PostControllerTest do
     title: "some updated title",
     category: "some updated category",
     content: "some updated content",
-    created_at: "some updated created_at"
   }
-  @invalid_attrs %{tag: nil, description: nil, title: nil, category: nil, content: nil, created_at: nil}
+  @invalid_attrs %{tag: nil, description: nil, title: nil, category: nil, content: nil}
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}

@@ -13,7 +13,6 @@ defmodule MyBlog.PostsFixtures do
       |> Enum.into(%{
         category: "some category",
         content: "some content",
-        created_at: "some created_at",
         description: "some description",
         tag: "some tag",
         title: "some title"

@@ -8,7 +8,7 @@ defmodule MyBlog.PostsTest do
 
     import MyBlog.PostsFixtures
 
-    @invalid_attrs %{tag: nil, description: nil, title: nil, category: nil, content: nil, created_at: nil}
+    @invalid_attrs %{tag: nil, description: nil, title: nil, category: nil, content: nil}
 
     test "list_posts/0 returns all posts" do
       post = post_fixture()
@@ -21,7 +21,7 @@ defmodule MyBlog.PostsTest do
     end
 
     test "create_post/1 with valid data creates a post" do
-      valid_attrs = %{tag: "some tag", description: "some description", title: "some title", category: "some category", content: "some content", created_at: "some created_at"}
+      valid_attrs = %{tag: "some tag", description: "some description", title: "some title", category: "some category", content: "some content"}
 
       assert {:ok, %Post{} = post} = Posts.create_post(valid_attrs)
       assert post.tag == "some tag"
@@ -29,7 +29,6 @@ defmodule MyBlog.PostsTest do
       assert post.title == "some title"
       assert post.category == "some category"
       assert post.content == "some content"
-      assert post.created_at == "some created_at"
     end
 
     test "create_post/1 with invalid data returns error changeset" do
@@ -38,7 +37,7 @@ defmodule MyBlog.PostsTest do
 
     test "update_post/2 with valid data updates the post" do
       post = post_fixture()
-      update_attrs = %{tag: "some updated tag", description: "some updated description", title: "some updated title", category: "some updated category", content: "some updated content", created_at: "some updated created_at"}
+      update_attrs = %{tag: "some updated tag", description: "some updated description", title: "some updated title", category: "some updated category", content: "some updated content"}
 
       assert {:ok, %Post{} = post} = Posts.update_post(post, update_attrs)
       assert post.tag == "some updated tag"
@@ -46,7 +45,6 @@ defmodule MyBlog.PostsTest do
       assert post.title == "some updated title"
       assert post.category == "some updated category"
       assert post.content == "some updated content"
-      assert post.created_at == "some updated created_at"
     end
 
     test "update_post/2 with invalid data returns error changeset" do

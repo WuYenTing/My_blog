@@ -22,7 +22,7 @@ defmodule MyBlogWeb.PostJSON do
       title: post.title,
       category: post.category,
       content: post.content,
-      created_at: post.created_at,
+      created_at: post.inserted_at,
       description: post.description
     }
   end
