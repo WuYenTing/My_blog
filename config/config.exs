@@ -39,6 +39,11 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :my_blog, :pow,
+  user: MyBlog.Users.User,
+  repo: MyBlog.Repo,
+  cache_store_backend: Pow.Store.Backend.MnesiaCache
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"

@@ -84,3 +84,42 @@ curl -iX POST http://localhost:4000/api/posts \
     "description": "A new UN report warns that polar ice is melting faster than expected, with major implications for global sea levels and extreme weather patterns."
   }
 }'
+
+registration
+curl -X POST 'http://localhost:4000/api/registration' \
+   -H 'Content-Type: application/json' \
+   -d '{
+    "user": {
+        "email": "john.doe@test.com",
+        "password": "letmein@123",
+        "password_confirmation": "letmein@123"
+    }
+}'
+
+sign in
+curl -X POST 'http://localhost:4000/api/session' \
+   -H 'Content-Type: application/json' \
+   -d '{
+    "user": {
+        "email": "john.doe@test.com",
+        "password": "letmein@123"
+    }
+}'
+
+use access_token get from sign in response to create a post
+curl -X POST 'http://localhost:4000/api/posts' \
+   -H 'Authorization: access_token from sign in response' \
+   -H 'Content-Type: application/json' \
+   -d '{
+    "data": {
+        "title": "Amet nisl suscipit adipiscing bibendum est",
+        "description": "Egestas purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae auctor eu augue ut lectus arcu bibendum at varius vel pharetra vel turpis nunc",
+        "content": "Ipsum dolor sit amet **consectetur** adipiscing. Leo integer malesuada nunc vel risus. Id leo in vitae turpis massa sed elementum tempus egestas.\n\n- Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus\n- Sed felis eget velit aliquet sagittis id consectetur. Interdum varius sit amet mattis\n- Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt tortor.\n\n Integer enim neque volutpat ac tincidunt vitae. Ac turpis egestas maecenas pharetra convallis posuere. Urna neque viverra justo nec ultrices dui.",
+        "category": "test",
+        "tag": "test"
+    }
+}'
+
+renew access_token
+curl -X POST 'http://localhost:4000/api/session/renew' \
+   -H 'Authorization: previous access_token from sign in response'

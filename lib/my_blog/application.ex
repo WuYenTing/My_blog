@@ -17,7 +17,8 @@ defmodule MyBlog.Application do
       # Start a worker by calling: MyBlog.Worker.start_link(arg)
       # {MyBlog.Worker, arg},
       # Start to serve requests, typically the last entry
-      MyBlogWeb.Endpoint
+      MyBlogWeb.Endpoint,
+      Pow.Store.Backend.MnesiaCache
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

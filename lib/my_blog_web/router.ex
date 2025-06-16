@@ -1,15 +1,33 @@
 defmodule MyBlogWeb.Router do
+
   use MyBlogWeb, :router
+  use Pow.Phoenix.Router
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug MyBlogWeb.APIAuthPlug, otp_app: :my_blog
+  end
+
+  pipeline :api_protected do
+    plug Pow.Plug.RequireAuthenticated, error_handler: MyBlogWeb.APIAuthErrorHandler
+  end
+
+  scope "/api", MyBlogWeb do
+    pipe_through [:api, :api_protected]
+
+    resources "/posts", PostController, only: [:create]
   end
 
   scope "/api", MyBlogWeb do
     pipe_through :api
 
-    resources "/posts", PostController
-  end
+    resources "/registration", RegistrationController, singleton: true, only: [:create]
+    resources "/session", SessionController, singleton: true, only: [:create, :delete]
+    post "/session/renew", SessionController, :renew
+
+    resources "/posts", PostController, only: [:index, :show]
+end
+
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:my_blog, :dev_routes) do
