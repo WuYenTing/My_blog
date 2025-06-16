@@ -15,7 +15,7 @@ defmodule MyBlogWeb.Router do
   scope "/api", MyBlogWeb do
     pipe_through [:api, :api_protected]
 
-    resources "/posts", PostController, only: [:create]
+    resources "/my-posts", MyPostController, only: [:index, :create, :update, :delete]
   end
 
   scope "/api", MyBlogWeb do

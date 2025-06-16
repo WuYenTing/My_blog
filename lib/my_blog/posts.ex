@@ -21,6 +21,10 @@ defmodule MyBlog.Posts do
     Repo.all(Post, order_by: [desc: :inserted_at])
   end
 
+  def list_posts(%MyBlog.Users.User{id: user_id}) do
+    Repo.all(from p in Post, where: p.user_id == ^user_id, preload: [:user], order_by: [desc: :inserted_at])
+  end
+
   @doc """
   Gets a single post.
 
@@ -41,6 +45,14 @@ defmodule MyBlog.Posts do
     end
   end
 
+  def get_post(%MyBlog.Users.User{id: user_id}, id) do
+    q = from p in Post, where: p.user_id == ^user_id, preload: [:user]
+    case Repo.get(q, id) do
+      nil -> {:error, :not_found}
+      post -> {:ok, post}
+    end
+  end
+
   @doc """
   Creates a post.
 
@@ -53,10 +65,15 @@ defmodule MyBlog.Posts do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_post(attrs \\ %{}) do
-    %Post{}
-    |> Post.changeset(attrs)
-    |> Repo.insert()
+  def create_post(%MyBlog.Users.User{} = user, attrs \\ %{}) do
+    with {:ok, post} <-
+      %Post{}
+      |> Post.changeset(attrs)
+      |> Ecto.Changeset.put_assoc(:user, user)
+      |> Repo.insert()
+    do
+      {:ok, Repo.preload(post, [:user])}
+    end
   end
 
   @doc """

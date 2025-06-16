@@ -9,6 +9,8 @@ defmodule MyBlog.Posts.Post do
     field :category, :string
     field :content, :string
 
+    belongs_to :user, MyBlog.Users.User
+
     timestamps(type: :utc_datetime)
   end
 

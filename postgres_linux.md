@@ -107,7 +107,7 @@ curl -X POST 'http://localhost:4000/api/session' \
 }'
 
 use access_token get from sign in response to create a post
-curl -X POST 'http://localhost:4000/api/posts' \
+curl -X POST 'http://localhost:4000/api/my-posts' \
    -H 'Authorization: access_token from sign in response' \
    -H 'Content-Type: application/json' \
    -d '{
@@ -122,4 +122,7 @@ curl -X POST 'http://localhost:4000/api/posts' \
 
 renew access_token
 curl -X POST 'http://localhost:4000/api/session/renew' \
-   -H 'Authorization: previous access_token from sign in response'
+   -H 'Authorization: renewal_token from sign in response'
+
+curl -X GET 'http://localhost:4000/api/my-posts' \
+   -H 'Authorization: access_token from sign in response'
