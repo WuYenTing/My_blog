@@ -85,6 +85,7 @@ curl -iX POST http://localhost:4000/api/posts \
   }
 }'
 
+--- after use pow auth ----
 registration
 curl -X POST 'http://localhost:4000/api/registration' \
    -H 'Content-Type: application/json' \
@@ -120,9 +121,28 @@ curl -X POST 'http://localhost:4000/api/my-posts' \
     }
 }'
 
-renew access_token
+use renewal_token get from sign in response to renew access_token
 curl -X POST 'http://localhost:4000/api/session/renew' \
    -H 'Authorization: renewal_token from sign in response'
 
+use access_token get from sign in response to get all my posts
 curl -X GET 'http://localhost:4000/api/my-posts' \
+   -H 'Authorization: access_token from sign in response'
+
+use access_token get from sign in response to update a post
+curl -X PUT 'http://localhost:4000/api/my-posts/9' \
+   -H 'Authorization: access_token from sign in response' \
+   -H 'Content-Type: application/json' \
+   -d '{
+    "data": {
+        "title": "Amet nisl suscipit adipiscing bibendum est",
+        "description": "Egestas purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae auctor eu augue ut lectus arcu bibendum at varius vel pharetra vel turpis nunc",
+        "content": "Ipsum dolor sit amet **consectetur** adipiscing. Leo integer malesuada nunc vel risus. Id leo in vitae turpis massa sed elementum tempus egestas.\n\n- Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus\n- Sed felis eget velit aliquet sagittis id consectetur. Interdum varius sit amet mattis\n- Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt tortor.\n\n Integer enim neque volutpat ac tincidunt vitae. Ac turpis egestas maecenas pharetra convallis posuere. Urna neque viverra justo nec ultrices dui.",
+        "category": "test",
+        "tag": "test"
+    }
+}'
+
+use access_token get from sign in response to delete a post
+curl -X DELETE 'http://localhost:4000/api/my-posts/9' \
    -H 'Authorization: access_token from sign in response'
