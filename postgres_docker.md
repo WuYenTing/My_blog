@@ -5,9 +5,9 @@ docker run --name phoenix-db \
 -e POSTGRES_DB=my_blog_dev \
 -p 5432:5432 \
 -v postgres-data:/var/lib/postgresql/data \
--d postgres
+-d postgres:17
 docker ps
-
+ulimit -n 524288 (wsl2)a
 docker exec -it phoenix-db psql -U postgres -d my_blog_dev
 
 docker stop phoenix-db
@@ -15,6 +15,7 @@ docker rm phoenix-db
 docker volume rm postgres-data
 
 
+docker ps -a --format "docker rm {{.Name}}"
 docker logs -f phoenix-db
 
  
