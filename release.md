@@ -13,4 +13,3 @@
 # Getting all dependencies and compiling.
 
 6. mix phx.gen.release
-7. test
