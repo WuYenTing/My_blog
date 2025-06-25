@@ -12,4 +12,6 @@
 5. MIX_ENV=prod mix compile
 # Getting all dependencies and compiling.
 
-6. mix phx.gen.release
+6. mix phx.gen.release (--docker for generate a dockerfile) 
+
+7. MIX_ENV=prod mix release
