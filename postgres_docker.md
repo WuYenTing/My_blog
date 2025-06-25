@@ -1,18 +1,23 @@
+docker network create roting-network
+docker network ls
 docker pull postgres:17
-docker run --name phoenix-db \
+docker run \
+--name phoenix-db \
+--network roting-network \
 -e POSTGRES_PASSWORD=postgres \
 -e POSTGRES_USER=postgres \
--e POSTGRES_DB=my_blog_dev \
+-e POSTGRES_DB=postgres \
 -p 5432:5432 \
 -v postgres-data:/var/lib/postgresql/data \
 -d postgres:17
 docker ps
 ulimit -n 524288 (wsl2)a
-docker exec -it phoenix-db psql -U postgres -d my_blog_dev
+docker exec -it phoenix-db psql -U postgres -d postgres
 
 docker stop phoenix-db
 docker rm phoenix-db
 docker volume rm postgres-data
+docker stop phoenix-db && docker rm phoenix-db && docker volume rm postgres-data
 
 
 docker ps -a --format "docker rm {{.Name}}"
