@@ -3,7 +3,7 @@ defmodule MyBlog.Repo.Migrations.UpdatePostContentSize do
 
   def change do
     alter table(:posts) do
-      modify :content, :string, size: 5000
+      modify :content, :string, size: 50000
     end
   end
 end
