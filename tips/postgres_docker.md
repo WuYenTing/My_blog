@@ -1,6 +1,6 @@
 docker network create roting-network
 docker network ls
-docker pull postgres:17
+docker pull postgres:17-alpine
 docker run \
 --name phoenix-db \
 --network roting-network \
@@ -9,7 +9,7 @@ docker run \
 -e POSTGRES_DB=postgres \
 -p 5432:5432 \
 -v postgres-data:/var/lib/postgresql/data \
--d postgres:17
+-d postgres:17-alpine
 docker ps
 ulimit -n 524288 (wsl2)a
 docker exec -it phoenix-db psql -U postgres -d postgres
