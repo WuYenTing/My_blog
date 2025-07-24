@@ -36,8 +36,10 @@ jobs:
     - name: Build and push to dockerhub
       uses: docker/build-push-action@v6
       with:
-         context: .
-         platforms: linux/amd64, linux/arm64
-         push: true
-         tags: ${{ secrets.DOCKERHUB_USERNAME }}/tingress-server:${{ steps.vars.outputs.sha_short }}
+        context: .
+        platforms: linux/amd64, linux/arm64
+        push: true
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/tingress-server:${{ steps.vars.outputs.sha_short }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
          
